@@ -1,5 +1,6 @@
 package com.loloof64.android.slidingpuzzle.model
 
+import java.util.*
 import kotlin.math.abs
 
 data class IllegalMoveException(val dx: Int, val dy: Int) : Exception()
@@ -34,6 +35,16 @@ class DataGrid {
             else -> swapCellVertically(firstCellColumn = column, firstCellRow = row,
                         secondCellDistance = -dy)
         }
+    }
+
+    fun gameIsWon() : Boolean {
+        val expectedOrder = arrayOf(
+                1,2,3,4,
+                5,6,7,8,
+                9,10,11,12,
+                13,14,15,0
+        )
+        return Arrays.equals(_values, expectedOrder)
     }
 
     private fun findHoleIndex() : Int {

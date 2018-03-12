@@ -2,8 +2,10 @@ package com.loloof64.android.slidingpuzzle.model
 
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.*
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import java.util.*
 
 class DataGridTest {
 
@@ -16,56 +18,56 @@ class DataGridTest {
     fun tryingToBringTheHoleJustLeftToItsCellShouldSucceed_1(){
         data.values = dataInit1
         data.moveHoleToCell(column = 0, row = 1)
-        assertThat(data.values, arrayContaining(*dataOutput1))
+        assertTrue(Arrays.equals(data.values.toIntArray(), dataOutput1.toIntArray()))
     }
 
     @Test
     fun tryingToBringTheHoleJustLeftToItsCellShouldSucceed_2(){
         data.values = dataInit2
         data.moveHoleToCell(column = 1, row = 3)
-        assertThat(data.values, arrayContaining(*dataOutput2))
+        assertTrue(Arrays.equals(data.values.toIntArray() , dataOutput2.toIntArray()))
     }
 
     @Test
     fun tryingToBringTheHoleJustRightToItsCellShouldSucceed_1(){
         data.values = dataInit3
         data.moveHoleToCell(column = 2, row = 1)
-        assertThat(data.values, arrayContaining(*dataOutput3))
+        assertTrue(Arrays.equals(data.values.toIntArray() , dataOutput3.toIntArray()))
     }
 
     @Test
     fun tryingToBringTheHoleJustRightToItsCellShouldSucceed_2(){
         data.values = dataInit4
         data.moveHoleToCell(column = 3, row = 0)
-        assertThat(data.values, arrayContaining(*dataOutput4))
+        assertTrue(Arrays.equals(data.values.toIntArray() , dataOutput4.toIntArray()))
     }
 
     @Test
     fun tryingToBringTheHoleJustUpToItsCellShouldSucceed_1(){
         data.values = dataInit5
         data.moveHoleToCell(column = 1, row = 0)
-        assertThat(data.values, arrayContaining(*dataOutput5))
+        assertTrue(Arrays.equals(data.values.toIntArray() , dataOutput5.toIntArray()))
     }
 
     @Test
     fun tryingToBringTheHoleJustUpToItsCellShouldSucceed_2(){
         data.values = dataInit6
         data.moveHoleToCell(column = 2, row = 2)
-        assertThat(data.values, arrayContaining(*dataOutput6))
+        assertTrue(Arrays.equals(data.values.toIntArray() , dataOutput6.toIntArray()))
     }
 
     @Test
     fun tryingToBringTheHoleJustDownItsCellShouldSucceed_1(){
         data.values = dataInit7
         data.moveHoleToCell(column = 1, row = 2)
-        assertThat(data.values, arrayContaining(*dataOutput7))
+        assertTrue(Arrays.equals(data.values.toIntArray() , dataOutput7.toIntArray()))
     }
 
     @Test
     fun tryingToBringTheHoleJustDownItsCellShouldSucceed_2(){
         data.values = dataInit8
         data.moveHoleToCell(column = 2, row = 1)
-        assertThat(data.values, arrayContaining(*dataOutput8))
+        assertTrue(Arrays.equals(data.values.toIntArray() , dataOutput8.toIntArray()))
     }
 
     @Test(expected = IllegalMoveException::class)
@@ -164,7 +166,20 @@ class DataGridTest {
         data.moveHoleToCell(column = 2, row = 4)
     }
 
+    @Test
+    fun gameWonWithGridInOrder(){
+        data.values = expectedOrder
+        assertTrue(data.gameIsWon())
+    }
+
     private lateinit var data: DataGrid
+
+    private val expectedOrder = arrayOf(
+            1,2,3,4,
+            5,6,7,8,
+            9,10,11,12,
+            13,14,15,0
+    )
 
     private val dataInit1 = arrayOf(
             4, 1, 12,7,
