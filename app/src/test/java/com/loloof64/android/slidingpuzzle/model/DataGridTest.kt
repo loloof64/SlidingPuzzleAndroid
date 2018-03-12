@@ -1,7 +1,5 @@
 package com.loloof64.android.slidingpuzzle.model
 
-import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.*
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
