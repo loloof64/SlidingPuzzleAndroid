@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import com.loloof64.android.slidingpuzzle.model.GridViewModel
+import com.loloof64.android.slidingpuzzle.model.IllegalMoveException
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -39,6 +40,34 @@ class MainActivity : AppCompatActivity() {
             }
         })
         gridModel.randomizeGrid()
+
+        cell_00.setOnClickListener { moveHoleToCell(column = 0, row = 0) }
+        cell_01.setOnClickListener { moveHoleToCell(column = 1, row = 0) }
+        cell_02.setOnClickListener { moveHoleToCell(column = 2, row = 0) }
+        cell_03.setOnClickListener { moveHoleToCell(column = 3, row = 0) }
+
+        cell_10.setOnClickListener { moveHoleToCell(column = 0, row = 1) }
+        cell_11.setOnClickListener { moveHoleToCell(column = 1, row = 1) }
+        cell_12.setOnClickListener { moveHoleToCell(column = 2, row = 1) }
+        cell_13.setOnClickListener { moveHoleToCell(column = 3, row = 1) }
+
+        cell_20.setOnClickListener { moveHoleToCell(column = 0, row = 2) }
+        cell_21.setOnClickListener { moveHoleToCell(column = 1, row = 2) }
+        cell_22.setOnClickListener { moveHoleToCell(column = 2, row = 2) }
+        cell_23.setOnClickListener { moveHoleToCell(column = 3, row = 2) }
+
+        cell_30.setOnClickListener { moveHoleToCell(column = 0, row = 3) }
+        cell_31.setOnClickListener { moveHoleToCell(column = 1, row = 3) }
+        cell_32.setOnClickListener { moveHoleToCell(column = 2, row = 3) }
+        cell_33.setOnClickListener { moveHoleToCell(column = 3, row = 3) }
+    }
+
+    private fun moveHoleToCell(column: Int, row: Int) {
+        try {
+            gridModel.moveHoleToCell(column = column, row = row)
+        } catch (ex: IllegalMoveException) {
+            // Nothing to do
+        }
     }
 
     private fun updateCell(cellRef: TextView, value: Int) {

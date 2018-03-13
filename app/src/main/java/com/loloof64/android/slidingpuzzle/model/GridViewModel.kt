@@ -14,6 +14,11 @@ class GridViewModel : ViewModel() {
         return _gridValues
     }
 
+    fun moveHoleToCell(column: Int, row: Int) {
+        _dataGrid.moveHoleToCell(column = column, row = row)
+        _gridValues.value = _dataGrid.values
+    }
+
     fun randomizeGrid() {
         if (_gameFinished){
             val newValues = GridRandomize.generate()
