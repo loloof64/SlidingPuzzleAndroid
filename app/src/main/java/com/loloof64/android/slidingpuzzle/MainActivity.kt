@@ -4,7 +4,9 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 import com.loloof64.android.slidingpuzzle.model.GridViewModel
 import com.loloof64.android.slidingpuzzle.model.IllegalMoveException
 import kotlinx.android.synthetic.main.activity_main.*
@@ -60,11 +62,25 @@ class MainActivity : AppCompatActivity() {
         cell_31.setOnClickListener { moveHoleToCell(column = 1, row = 3) }
         cell_32.setOnClickListener { moveHoleToCell(column = 2, row = 3) }
         cell_33.setOnClickListener { moveHoleToCell(column = 3, row = 3) }
+
+        new_game_button.setOnClickListener {
+            gridModel.randomizeGrid()
+            new_game_button.visibility = View.INVISIBLE
+            grid.visibility = View.VISIBLE
+        }
+
+        new_game_button.visibility = View.INVISIBLE
+        grid.visibility = View.VISIBLE
     }
 
     private fun moveHoleToCell(column: Int, row: Int) {
         try {
             gridModel.moveHoleToCell(column = column, row = row)
+            if (gridModel.checkForWonGame()) {
+                Toast.makeText(this, R.string.you_won, Toast.LENGTH_SHORT).show()
+                new_game_button.visibility = View.VISIBLE
+                grid.visibility = View.INVISIBLE
+            }
         } catch (ex: IllegalMoveException) {
             // Nothing to do
         }

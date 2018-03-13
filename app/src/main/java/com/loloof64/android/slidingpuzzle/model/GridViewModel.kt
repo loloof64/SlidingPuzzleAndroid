@@ -19,11 +19,18 @@ class GridViewModel : ViewModel() {
         _gridValues.value = _dataGrid.values
     }
 
+    fun checkForWonGame(): Boolean {
+        val wonGame = _dataGrid.gameIsWon()
+        if (wonGame) _gameFinished = true
+        return wonGame
+    }
+
     fun randomizeGrid() {
         if (_gameFinished){
             val newValues = GridRandomize.generate()
             _dataGrid.values = newValues
             _gridValues.value = newValues
+            _gameFinished = false
         }
     }
 }

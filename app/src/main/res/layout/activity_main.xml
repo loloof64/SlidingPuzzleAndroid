@@ -8,6 +8,7 @@
     tools:context="com.loloof64.android.slidingpuzzle.MainActivity">
 
     <RelativeLayout
+        android:id="@+id/grid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
@@ -213,6 +214,15 @@
             tools:text=""/>
 
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/new_game_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/new_game"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"
+        />
 
 
 </RelativeLayout>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SlidingPuzzle</string>
+    <string name="you_won">Vous avez gagné !</string>
+    <string name="new_game">Nouvelle partie</string>
+</resources>
