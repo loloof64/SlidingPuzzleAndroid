@@ -8,13 +8,13 @@ data class OutOfGridException(val column: Int, val row: Int) : Exception()
 
 class DataGrid {
 
-    var values:Array<Int>
-        get() = _values.clone()
-        set(value) {
-            _values = value
+    var values: Array<Int>
+        get() = _values
+        set(update) {
+            _values = update
         }
 
-    fun moveHoleToCell(column: Int, row: Int) {
+    fun moveHoleToCell(column: Int, row: Int) : DataGrid {
         val holeIndex = findHoleIndex()
         val holeColumn = holeIndex % 4
         val holeRow = holeIndex / 4
@@ -35,6 +35,8 @@ class DataGrid {
             else -> swapCellVertically(firstCellColumn = column, firstCellRow = row,
                         secondCellDistance = -dy)
         }
+
+        return this
     }
 
     fun gameIsWon() : Boolean {
@@ -44,29 +46,28 @@ class DataGrid {
                 9,10,11,12,
                 13,14,15,0
         )
-        return Arrays.equals(_values, expectedOrder)
+        return Arrays.equals(values, expectedOrder)
     }
 
     private fun findHoleIndex() : Int {
         var holeIndex = -1
-        while (_values[++holeIndex] != 0);
+        while (values[++holeIndex] != 0);
         return holeIndex
     }
 
     private fun swapCellsHorizontally(firstCellColumn: Int, firstCellRow: Int, secondCellDistance: Int){
         val pointedCellIndex = firstCellColumn + 4 * firstCellRow
-        val temp = _values[pointedCellIndex]
-        _values[pointedCellIndex] = _values[pointedCellIndex + secondCellDistance]
-        _values[pointedCellIndex + secondCellDistance] = temp
+        val temp = values[pointedCellIndex]
+        values[pointedCellIndex] = values[pointedCellIndex + secondCellDistance]
+        values[pointedCellIndex + secondCellDistance] = temp
     }
 
     private fun swapCellVertically(firstCellColumn: Int, firstCellRow: Int, secondCellDistance: Int){
         val pointedCellIndex = firstCellColumn + 4*firstCellRow
-        val temp = _values[pointedCellIndex]
-        _values[pointedCellIndex] = _values[pointedCellIndex + 4*secondCellDistance]
-        _values[pointedCellIndex + 4*secondCellDistance] = temp
+        val temp = values[pointedCellIndex]
+        values[pointedCellIndex] = values[pointedCellIndex + 4*secondCellDistance]
+        values[pointedCellIndex + 4*secondCellDistance] = temp
     }
 
-
-    private var _values:Array<Int> = arrayOf()
+    private var _values: Array<Int> = arrayOf()
 }
